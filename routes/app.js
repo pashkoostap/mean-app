@@ -1,19 +1,28 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const User = require('../assets/models/user');
+const router = express.Router();
 
 router.get('/', function(req, res, next) {
-  res.render('index');
-});
-
-router.get('/message/:msg', function(req, res, next) {
-  res.render('node', {
-    message: req.params.msg
+  User.find({}, (err, doc) => {
+    if (err) {
+      return res.send(err);
+    }
+    res.render('node', { email: doc });
   });
 });
 
-router.post('/message', function(req, res, next) {
-  const { message } = req.body;
-  res.redirect('/message/' + message);
+router.post('/', function(req, res, next) {
+  const { email } = req.body;
+  const user = new User({
+    firstName: 'firstName',
+    lastName: 'lastName',
+    password: 'password',
+    email
+  });
+
+  user.save();
+
+  res.redirect('/');
 });
 
 module.exports = router;
