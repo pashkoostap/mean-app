@@ -7,8 +7,8 @@ export class Message {
   constructor(
     content: string,
     username: string,
-    messageID: string,
-    userID: string
+    messageID?: string,
+    userID?: string
   ) {
     this.content = content;
     this.username = username;
