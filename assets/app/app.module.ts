@@ -4,9 +4,16 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { MessageComponent } from './messages/message.component/message.component';
+import { MessagesListComponent } from './messages/messages-list.component/messages-list.component';
+import { MessageInputComponent } from './messages/message-input.component/message-input.component';
 
 @NgModule({
-  declarations: [AppComponent, MessageComponent],
+  declarations: [
+    AppComponent,
+    MessageComponent,
+    MessagesListComponent,
+    MessageInputComponent
+  ],
   imports: [BrowserModule, FormsModule],
   bootstrap: [AppComponent]
 })
