@@ -10,7 +10,12 @@ export class MessageInputComponent {
   constructor(private messageService: MessageService) {}
 
   onSave(input: HTMLInputElement) {
-    const message = new Message(input.value, 'Max');
-    this.messageService.addMessage(message);
+    let { value } = input;
+
+    if (value.length) {
+      const message = new Message(input.value, 'Max');
+      this.messageService.addMessage(message);
+      input.value = '';
+    }
   }
 }
