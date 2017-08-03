@@ -10,6 +10,7 @@ import { MessageInputComponent } from "./messages/message-input.component/messag
 import { MessageService } from "./messages/message.service";
 import { AuthComponent } from "./auth/auth.component/auth.component";
 import { HeaderComponent } from "./header/header.component";
+import { router } from "./app.routes";
 
 @NgModule({
   declarations: [
@@ -21,7 +22,7 @@ import { HeaderComponent } from "./header/header.component";
     AuthComponent,
     HeaderComponent
   ],
-  imports: [BrowserModule, FormsModule],
+  imports: [BrowserModule, FormsModule, router],
   providers: [MessageService],
   bootstrap: [AppComponent]
 })
