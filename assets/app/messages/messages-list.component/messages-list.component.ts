@@ -4,11 +4,7 @@ import { MessageService } from "../message.service";
 
 @Component({
   selector: "app-messages-list",
-  template: `
-    <div class='col-md-12'>
-     <app-message [message]='message' *ngFor='let message of messages'></app-message>
-    </div>
-    `
+  templateUrl: "./messages-list.component.html"
 })
 export class MessagesListComponent implements OnInit {
   messages: Message[];
