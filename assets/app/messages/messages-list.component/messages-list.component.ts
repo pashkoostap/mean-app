@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { Message } from '../message.model';
-import { MessageService } from '../message.service';
+import { Component, OnInit } from "@angular/core";
+import { Message } from "../message.model";
+import { MessageService } from "../message.service";
 
 @Component({
-  selector: 'app-messages-list',
+  selector: "app-messages-list",
   template: `
-    <div class='col-md-8 col-md-offset-2'>
+    <div class='col-md-12'>
      <app-message [message]='message' *ngFor='let message of messages'></app-message>
     </div>
     `
