@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
 var appRoutes = require('./routes/app');
+var messageRoutes = require('./routes/message');
 
 var app = express();
 mongoose.connect('mongodb://ostap:ostap@ds034797.mlab.com:34797/mean-app');
@@ -36,6 +37,7 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.use('/message', messageRoutes);
 app.use('/', appRoutes);
 
 // catch 404 and forward to error handler
