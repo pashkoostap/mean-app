@@ -10,6 +10,10 @@ import { MessageInputComponent } from "./messages/message-input.component/messag
 import { MessageService } from "./messages/message.service";
 import { AuthComponent } from "./auth/auth.component/auth.component";
 import { HeaderComponent } from "./header/header.component";
+import { SignInComponent } from "./auth/signin.component/signin.component";
+import { SignUpComponent } from "./auth/signup.component/signup.component";
+import { LogOutComponent } from "./auth/logout.component/logout.component";
+
 import { router } from "./app.routes";
 
 @NgModule({
@@ -20,7 +24,10 @@ import { router } from "./app.routes";
     MessageInputComponent,
     MessagesComponent,
     AuthComponent,
-    HeaderComponent
+    HeaderComponent,
+    SignInComponent,
+    SignUpComponent,
+    LogOutComponent
   ],
   imports: [BrowserModule, FormsModule, router],
   providers: [MessageService],
