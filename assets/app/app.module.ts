@@ -15,6 +15,7 @@ import { SignUpComponent } from './auth/signup.component/signup.component';
 import { LogOutComponent } from './auth/logout.component/logout.component';
 
 import { router } from './app.routes';
+import { HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,13 @@ import { router } from './app.routes';
     SignUpComponent,
     LogOutComponent
   ],
-  imports: [BrowserModule, FormsModule, ReactiveFormsModule, router],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpModule,
+    router
+  ],
   providers: [MessageService],
   bootstrap: [AppComponent]
 })

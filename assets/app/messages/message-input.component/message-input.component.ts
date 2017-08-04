@@ -1,11 +1,11 @@
-import { Component } from "@angular/core";
-import { Message } from "../message.model";
-import { MessageService } from "../message.service";
-import { NgForm } from "@angular/forms";
+import { Component } from '@angular/core';
+import { Message } from '../message.model';
+import { MessageService } from '../message.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
-  selector: "app-message-input",
-  templateUrl: "./message-input.component.html"
+  selector: 'app-message-input',
+  templateUrl: './message-input.component.html'
 })
 export class MessageInputComponent {
   constructor(private messageService: MessageService) {}
@@ -14,8 +14,10 @@ export class MessageInputComponent {
     console.log(form);
     let { value: { content } } = form;
     if (content.length) {
-      const message = new Message(content, "Max");
-      this.messageService.addMessage(message);
+      const message = new Message(content, 'Max');
+      this.messageService
+        .addMessage(message)
+        .subscribe(data => console.log(data), err => console.error(err));
       form.resetForm();
     }
   }

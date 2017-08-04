@@ -11,13 +11,18 @@ router.post('/', (req, res, next) => {
 
   message.save((error, result) => {
     if (error) {
-      return res.status(500).json({
+      return res.json({
         title: 'An error ocured',
-        error
+        error,
+        status: 500
       });
     }
 
-    res.send(201).json({ message: 'Message saved', result });
+    res.json({
+      message: 'Message saved',
+      result,
+      status: 200
+    });
   });
 });
 
