@@ -3,6 +3,24 @@ const router = express.Router();
 
 const Message = require('../assets/models/message');
 
+router.get('/', (req, res) => {
+  Message.find().exec((err, messages) => {
+    if (err) {
+      return res.json({
+        status: 500,
+        error,
+        title: 'An error occured'
+      });
+    }
+
+    res.json({
+      message: 'Messages found',
+      status: 200,
+      messages
+    });
+  });
+});
+
 router.post('/', (req, res, next) => {
   const { body: { content } } = req;
   const message = new Message({
