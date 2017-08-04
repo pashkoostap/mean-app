@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import { Message } from './message.model';
-import 'rxjs/Rx';
 import { Observable } from 'rxjs';
+import 'rxjs/Rx';
 
 @Injectable()
 export class MessageService {
@@ -14,6 +14,7 @@ export class MessageService {
     this.messages.push(message);
     const body = JSON.stringify(message);
     const headers = new Headers({ 'Content-Type': 'application/json' });
+
     return this.http
       .post('http://localhost:10000/message', body, { headers })
       .map((res: Response) => res.json())
@@ -21,7 +22,21 @@ export class MessageService {
   }
 
   getMessages() {
-    return this.messages;
+    return this.http
+      .get('http://localhost:10000/message')
+      .map((res: Response) => {
+        const { messages } = res.json();
+        let transformedMessages: Message[] = [];
+
+        for (let message of messages) {
+          const msg = new Message(message.content, 'User', message._id, null);
+          transformedMessages.push(msg);
+        }
+
+        this.messages = transformedMessages;
+        return this.messages;
+      })
+      .catch((err: Response) => Observable.throw(err));
   }
 
   deleteMessage(message: Message) {
