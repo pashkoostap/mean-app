@@ -27,6 +27,9 @@ export class MessageInputComponent implements OnInit {
     const { value: { content } } = form;
     if (this.message) {
       this.message.content = content;
+      this.messageService
+        .updateMessage(this.message)
+        .subscribe(result => console.log(result));
       this.message = null;
     } else {
       const message = new Message(content, 'Max');

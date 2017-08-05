@@ -12,13 +12,17 @@ export class MessageService {
   constructor(private http: Http) {}
 
   addMessage(message: Message) {
-    this.messages.push(message);
     const body = JSON.stringify(message);
     const headers = new Headers({ 'Content-Type': 'application/json' });
 
     return this.http
       .post('http://localhost:10000/message', body, { headers })
-      .map((res: Response) => res.json())
+      .map((res: Response) => {
+        const { result } = res.json();
+        const message = new Message(result.content, 'User', result._id, null);
+        this.messages.push(message);
+        return message;
+      })
       .catch((err: Response) => Observable.throw(err.json()));
   }
 
@@ -26,7 +30,18 @@ export class MessageService {
     this.messagesIsEdited.emit(message);
   }
 
-  updateMessage(message: Message) {}
+  updateMessage(message: Message) {
+    this.messages.push(message);
+    const body = JSON.stringify(message);
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+
+    return this.http
+      .patch(`http://localhost:10000/message/${message.messageID}`, body, {
+        headers
+      })
+      .map((res: Response) => res.json())
+      .catch((err: Response) => Observable.throw(err.json()));
+  }
 
   getMessages() {
     return this.http
