@@ -83,4 +83,41 @@ router.patch('/:id', (req, res, next) => {
   });
 });
 
+router.delete('/:id', (req, res, next) => {
+  const { id } = req.params;
+
+  Message.findById(id, (error, message) => {
+    if (error) {
+      return res.json({
+        title: 'An error ocured',
+        error,
+        status: 500
+      });
+    }
+
+    if (!message) {
+      return res.json({
+        title: 'No messages found',
+        status: 500
+      });
+    }
+
+    message.remove((error, result) => {
+      if (error) {
+        return res.json({
+          title: 'An error ocured',
+          error,
+          status: 500
+        });
+      }
+
+      res.json({
+        title: 'Message deleted',
+        result,
+        status: 200
+      });
+    });
+  });
+});
+
 module.exports = router;

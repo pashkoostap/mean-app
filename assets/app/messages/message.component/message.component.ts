@@ -30,7 +30,9 @@ export class MessageComponent {
 
   onDelete(e: Event) {
     e.preventDefault();
-    this.messageService.deleteMessage(this.message);
+    this.messageService
+      .deleteMessage(this.message)
+      .subscribe(result => console.log(result));
   }
 
   onEdit(e: Event) {
