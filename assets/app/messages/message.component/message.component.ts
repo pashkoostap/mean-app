@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Message } from '../message.model';
 import { MessageService } from '../message.service';
 
@@ -31,5 +31,10 @@ export class MessageComponent {
   onDelete(e: Event) {
     e.preventDefault();
     this.messageService.deleteMessage(this.message);
+  }
+
+  onEdit(e: Event) {
+    e.preventDefault();
+    this.messageService.editMessage(this.message);
   }
 }
