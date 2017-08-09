@@ -5,7 +5,7 @@ const router = express.Router();
 
 const User = require('../assets/models/user');
 
-router.post('/', (req, res, next) => {
+router.post('/signup', (req, res, next) => {
   const { firstName, lastName, password, email } = req.body;
 
   const user = new User({
@@ -31,9 +31,8 @@ router.post('/', (req, res, next) => {
   });
 });
 
-router.post('/signin', (err, res, next) => {
+router.post('/signin', (req, res, next) => {
   const { email, password } = req.body;
-  const arePassEqual = bcrypt.compareSync(password, user.password);
 
   User.findOne({ email }, (error, user) => {
     if (error) {
@@ -43,6 +42,8 @@ router.post('/signin', (err, res, next) => {
         status: 500
       });
     }
+
+    const arePassEqual = bcrypt.compareSync(password, user.password);
 
     if (!user || !arePassEqual) {
       return res.json({

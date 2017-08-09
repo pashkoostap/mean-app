@@ -13,7 +13,17 @@ export class AuthService {
     const headers = new Headers({ 'Content-type': 'application/json' });
 
     return this.http
-      .post('http://localhost:10000/user', body, { headers })
+      .post('http://localhost:10000/user/signup', body, { headers })
+      .map((res: Response) => res.json())
+      .catch((err: Response) => Observable.throw(err.json()));
+  }
+
+  signin(user: User) {
+    const body = JSON.stringify(user);
+    const headers = new Headers({ 'Content-type': 'application/json' });
+
+    return this.http
+      .post('http://localhost:10000/user/signin', body, { headers })
       .map((res: Response) => res.json())
       .catch((err: Response) => Observable.throw(err.json()));
   }
