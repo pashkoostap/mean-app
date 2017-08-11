@@ -25,7 +25,7 @@ export class SignInComponent {
     const user = new User(email, password);
     this.authService.signin(user).subscribe(
       data => {
-        localStorage.setItem('data', data.token);
+        localStorage.setItem('token', data.token);
         localStorage.setItem('userId', data.userId);
         this.router.navigate(['/']);
       },

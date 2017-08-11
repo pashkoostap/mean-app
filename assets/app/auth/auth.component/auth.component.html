@@ -1,9 +1,15 @@
 <header class="row spacing">
   <nav class="col-xs-12">
     <ul class="nav nav-tabs">
-      <li routerLinkActive="active"><a [routerLink]="['signin']">Sign In</a></li>
-      <li routerLinkActive="active"><a [routerLink]="['signup']">Sign Up</a></li>
-      <li routerLinkActive="active"><a [routerLink]="['logout']">Log Out</a></li>
+      <li routerLinkActive="active">
+        <a [routerLink]="['signin']" *ngIf="!isLoggedIn()">Sign In</a>
+      </li>
+      <li routerLinkActive="active">
+        <a [routerLink]="['signup']">Sign Up</a>
+      </li>
+      <li routerLinkActive="active">
+        <a [routerLink]="['logout']" *ngIf="isLoggedIn()">Log Out</a>
+      </li>
     </ul>
   </nav>
 </header>
