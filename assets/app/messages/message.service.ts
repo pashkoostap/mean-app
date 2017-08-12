@@ -76,10 +76,10 @@ export class MessageService {
   }
 
   deleteMessage(message: Message) {
-    this.messages.splice(this.messages.indexOf(message), 1);
     const token = localStorage.getItem('token')
       ? `?token=${localStorage.getItem('token')}`
       : '';
+    this.messages.splice(this.messages.indexOf(message), 1);
 
     return this.http
       .delete(`http://localhost:10000/message/${message.messageID}${token}`)

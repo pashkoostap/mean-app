@@ -24,7 +24,7 @@ router.get('/', (req, res) => {
 });
 
 router.use('/', (req, res, next) => {
-  const { token } = req.query;
+  const { query: { token } } = req;
 
   jwt.verify(token, 'secret', (error, decoded) => {
     if (error) {
@@ -80,8 +80,8 @@ router.post('/', (req, res, next) => {
 });
 
 router.patch('/:id', (req, res, next) => {
-  const { id } = req.params;
-  const { content } = req.body;
+  const { params: { id }, query: { token }, body: { content } } = req;
+  const decoded = jwt.decode(token);
 
   Message.findById(id, (error, message) => {
     if (error) {
@@ -95,6 +95,13 @@ router.patch('/:id', (req, res, next) => {
     if (!message) {
       return res.json({
         title: 'No messages found',
+        status: 500
+      });
+    }
+
+    if (message.user != decoded.user._id) {
+      return res.json({
+        title: 'Not allowed',
         status: 500
       });
     }
@@ -119,7 +126,8 @@ router.patch('/:id', (req, res, next) => {
 });
 
 router.delete('/:id', (req, res, next) => {
-  const { id } = req.params;
+  const { params: { id }, query: { token } } = req;
+  const decoded = jwt.decode(token);
 
   Message.findById(id, (error, message) => {
     if (error) {
@@ -133,6 +141,13 @@ router.delete('/:id', (req, res, next) => {
     if (!message) {
       return res.json({
         title: 'No messages found',
+        status: 500
+      });
+    }
+
+    if (message.user != decoded.user._id) {
+      return res.json({
+        title: 'Not allowed',
         status: 500
       });
     }
