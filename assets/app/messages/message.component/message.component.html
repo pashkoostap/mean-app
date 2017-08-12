@@ -8,9 +8,9 @@
       {{message.username}}
     </div>
 
-    <div class="config">
-      <a href="#" (click)="onEdit($event)">Edit</a>
-      <a href="#" (click)="onDelete($event)">Delete</a>
+    <div class="config" *ngIf="belongToUser()">
+      <a href="#" (click)="onEdit($event) ">Edit</a>
+      <a href="#" (click)="onDelete($event) ">Delete</a>
     </div>
   </footer>
 </article>

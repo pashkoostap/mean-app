@@ -6,7 +6,7 @@ const Message = require('../assets/models/message');
 const User = require('../assets/models/user');
 
 router.get('/', (req, res) => {
-  Message.find().exec((err, messages) => {
+  Message.find().populate('user', '-password').exec((err, messages) => {
     if (err) {
       return res.json({
         status: 500,

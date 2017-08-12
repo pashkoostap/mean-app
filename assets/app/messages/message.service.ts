@@ -22,9 +22,17 @@ export class MessageService {
       .post(`http://localhost:10000/message${token}`, body, { headers })
       .map((res: Response) => {
         const { result } = res.json();
+        const { content, user: { _id, firstName, lastName } } = result;
+        const msgID = result._id;
 
         if (result) {
-          const message = new Message(result.content, 'User', result._id, null);
+          const message = new Message(
+            content,
+            `${firstName} ${lastName}`,
+            msgID,
+            _id
+          );
+
           this.messages.push(message);
           return message;
         } else {
@@ -65,7 +73,17 @@ export class MessageService {
         let transformedMessages: Message[] = [];
 
         for (let message of messages) {
-          const msg = new Message(message.content, 'User', message._id, null);
+          const {
+            content,
+            user: { firstName, lastName, email, _id }
+          } = message;
+          const msgID = message._id;
+          const msg = new Message(
+            content,
+            `${firstName} ${lastName}`,
+            msgID,
+            _id
+          );
           transformedMessages.push(msg);
         }
 

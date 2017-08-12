@@ -39,4 +39,9 @@ export class MessageComponent {
     e.preventDefault();
     this.messageService.editMessage(this.message);
   }
+
+  belongToUser() {
+    console.log(localStorage.getItem('userId') === this.message.userID);
+    return localStorage.getItem('userId') === this.message.userID;
+  }
 }
