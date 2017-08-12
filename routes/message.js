@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
 
 const Message = require('../assets/models/message');
 
@@ -18,6 +19,23 @@ router.get('/', (req, res) => {
       status: 200,
       messages
     });
+  });
+});
+
+router.use('/', (req, res, next) => {
+  const { token } = req.query;
+
+  jwt.verify(token, 'secret', (error, decoded) => {
+    if (error) {
+      return res.json({
+        title: 'Token is not valid',
+        status: 401,
+        error,
+        result: ''
+      });
+    }
+
+    next();
   });
 });
 

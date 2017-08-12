@@ -19,9 +19,14 @@ export class MessageService {
       .post('http://localhost:10000/message', body, { headers })
       .map((res: Response) => {
         const { result } = res.json();
-        const message = new Message(result.content, 'User', result._id, null);
-        this.messages.push(message);
-        return message;
+
+        if (result) {
+          const message = new Message(result.content, 'User', result._id, null);
+          this.messages.push(message);
+          return message;
+        } else {
+          return Observable.throw(res.json());
+        }
       })
       .catch((err: Response) => Observable.throw(err.json()));
   }
