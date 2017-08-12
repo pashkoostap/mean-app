@@ -52,29 +52,29 @@ router.post('/', (req, res, next) => {
         status: 500
       });
     }
-  });
 
-  const message = new Message({
-    content,
-    user
-  });
+    const message = new Message({
+      content,
+      user
+    });
 
-  message.save((error, result) => {
-    if (error) {
-      return res.json({
-        title: 'An error ocured',
-        error,
-        status: 500
+    message.save((error, result) => {
+      if (error) {
+        return res.json({
+          title: 'An error ocured',
+          error,
+          status: 500
+        });
+      }
+
+      user.messages.push(result);
+      user.save();
+
+      res.json({
+        message: 'Message saved',
+        result,
+        status: 200
       });
-    }
-
-    user.messages.push(result);
-    user.save();
-
-    res.json({
-      message: 'Message saved',
-      result,
-      status: 200
     });
   });
 });
